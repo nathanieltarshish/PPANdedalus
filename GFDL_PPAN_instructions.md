@@ -6,12 +6,12 @@ This installation uses conda to install BLAS, openmpi, and the various Python pa
 
 For these manual installations, the source download must be conducted on the `public` nodes, which can access the internet. **Installation must be done on the analysis nodes**, which have the proper compiliers. 
 
-By default, these instructions create the directory ``/nbhome/${USER}/software`` and install dedalus, HDF5, FFTW, and h5py within this directory. We assume the user is running in bash. 
+By default, these instructions install dedalus, HDF5, FFTW, and h5py within ``/net2/${USER}``. We assume the user is running in bash. 
 
 Download Source Files to Public 
 -------------------------------
 
-These instructions also assume you have installed Anaconda (or Miniconda) to ``/nbhome/${USER}``. To start, let's create a new conda environemnt for your dedalus installation. 
+These instructions also assume you have installed Anaconda (or Miniconda) to ``/net2/${USER}``. To start, let's create a new conda environemnt for your dedalus installation. 
 
 Login into ``public`` and create a  ``dedalus.yml`` file with the following contents:
 
