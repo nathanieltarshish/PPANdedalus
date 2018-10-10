@@ -6,7 +6,7 @@ This installation uses conda to install BLAS, openmpi, and the various Python pa
 
 For these manual installations, the source download must be conducted on the `public` nodes, which can access the internet. **Installation must be done on the analysis nodes**, which have the proper compiliers. 
 
-By default, these instructions create the directory ``/nbhome/${USER}/software`` and install dedalus, HDF5, FFTW, and h5py within this directory. We assume the user is running the default c-shell. 
+By default, these instructions create the directory ``/nbhome/${USER}/software`` and install dedalus, HDF5, FFTW, and h5py within this directory. We assume the user is running in bash. 
 
 Download Source Files to Public 
 -------------------------------
@@ -44,38 +44,40 @@ Create a file entitled ``dedalus_paths.csh`` with the following content:
 ```
 #DEDALUS SETUP
 
+alias module='/usr/local/Modules/$MODULE_VERSION/bin/modulecmd bash '
 module load gcc
 
-setenv CC mpicc
+export CC=mpicc
 
-source /nbhome/${USER}/anaconda3/etc/profile.d/conda.csh
-conda activate dedalus
+# source /net2/tlh/anaconda3/etc/profile.d/conda.csh
+source activate dedalus
 
-setenv BLAS /nbhome/${USER}/anaconda3/envs/dedalus/lib/libopenblas.so
-setenv MPI_PATH /nbhome/${USER}/anaconda3/envs/dedalus/lib/openmpi
-setenv LD_LIBRARY_PATH ${MPI_PATH}:${BLAS}:${LD_LIBRARY_PATH}
+export BLAS=/net2/${USER}/anaconda3/envs/dedalus/lib/libopenblas.so
+export MPI_PATH=/net2/${USER}/anaconda3/envs/dedalus/lib/openmpi
+export LD_LIBRARY_PATH=${MPI_PATH}:${BLAS}:${LD_LIBRARY_PATH}
 
-setenv HDF5_DIR /nbhome/${USER}/software/hdf5
-setenv HDF5_VERSION 1.10.1
-setenv HDF5_MPI "ON"
-setenv PATH ${HDF5_DIR}/bin:${PATH}
-setenv LD_LIBRARY_PATH ${HDF5_DIR}/lib:${LD_LIBRARY_PATH}
+export HDF5_DIR=/net2/${USER}/hdf5
+export HDF5_VERSION=1.10.1
+export HDF5_MPI="ON"
+export PATH=${HDF5_DIR}/bin:${PATH}
+export LD_LIBRARY_PATH=${HDF5_DIR}/lib:${LD_LIBRARY_PATH}
 
-setenv FFTW_PATH /nbhome/${USER}/software/fftw
-setenv FFTW_VERSION 3.3.6-pl2
-setenv PATH ${FFTW_PATH}/bin:${PATH}
-setenv LD_LIBRARY_PATH ${FFTW_PATH}/lib:${LD_LIBRARY_PATH}
+export FFTW_PATH=/net2/${USER}/fftw
+export FFTW_VERSION=3.3.6-pl2
+export PATH=${FFTW_PATH}/bin:${PATH}
+export LD_LIBRARY_PATH=${FFTW_PATH}/lib:${LD_LIBRARY_PATH}
 
-setenv DEDALUS_REPO /nbhome/${USER}/software/dedalus
+export DEDALUS_REPO=/net2/${USER}/dedalus
 
-setenv H5PY_REPO /nbhome/${USER}/software/h5py
+export H5PY_REPO=/net2/${USER}/h5py
 
 #add or append dedalus to python path 
-if (! $?PYTHONPATH) then
-  setenv PYTHONPATH "${DEDALUS_REPO}"
+if [ -z "${PYTHONPATH}" ]
+then
+  export PYTHONPATH="${DEDALUS_REPO}"
 else
-  setenv PYTHONPATH "${DEDALUS_REPO}":${PYTHONPATH}
-endif
+  export PYTHONPATH="${DEDALUS_REPO}":"${PYTHONPATH}"
+fi
 ```
 
 Now run, ``source dedalus_paths.csh`` to set these environmental paths. 
