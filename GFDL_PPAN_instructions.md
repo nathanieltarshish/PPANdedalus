@@ -49,7 +49,6 @@ module load gcc
 
 export CC=mpicc
 
-# source /net2/tlh/anaconda3/etc/profile.d/conda.csh
 source activate dedalus
 
 export BLAS=/net2/${USER}/anaconda3/envs/dedalus/lib/libopenblas.so
@@ -71,7 +70,7 @@ export DEDALUS_REPO=/net2/${USER}/dedalus
 
 export H5PY_REPO=/net2/${USER}/h5py
 
-#add or append dedalus to python path 
+# add or append dedalus to python path 
 if [ -z "${PYTHONPATH}" ]
 then
   export PYTHONPATH="${DEDALUS_REPO}"
