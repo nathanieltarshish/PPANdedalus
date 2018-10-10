@@ -128,7 +128,7 @@ python setup.py configure --mpi --hdf5=${HDF5_DIR}
 python setup.py build
 python setup.py install
 
-# build HDF5 from source
+# build FFTW from source
 cd ${FFTW_PATH}
 tar -xvzf fftw-${FFTW_VERSION}.tar.gz
 cd fftw-${FFTW_VERSION}
